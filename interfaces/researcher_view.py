@@ -7,28 +7,31 @@ from modules.researchers import (
 )
 
 
-class TelaPesquisadores(ctk.CTk):
+class TelaPesquisadores(ctk.CTkFrame):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, master, voltar_callback):
+        super().__init__(master)
 
-        self.title("ArqueoLab | Pesquisadores")
-        self.geometry("900x600")
-
-        ctk.set_appearance_mode("light")
-        ctk.set_default_color_theme("green")
+        self.voltar_callback = voltar_callback
 
         self.criar_interface()
 
     def criar_interface(self):
+
+        botao_voltar = ctk.CTkButton(
+            self,
+            text="← Voltar ao menu",
+            command=self.voltar_callback,
+            width=150
+        )
+        botao_voltar.pack(anchor="w", padx=25, pady=15)
 
         titulo = ctk.CTkLabel(
             self,
             text="Cadastro de Pesquisadores",
             font=("Arial", 26, "bold")
         )
-
-        titulo.pack(pady=25)
+        titulo.pack(pady=20)
 
         self.nome = ctk.CTkEntry(
             self,
@@ -63,7 +66,7 @@ class TelaPesquisadores(ctk.CTk):
             width=600,
             height=200
         )
-        self.lista.pack(pady=20)
+        self.lista.pack(pady=15)
 
         self.atualizar_lista()
 

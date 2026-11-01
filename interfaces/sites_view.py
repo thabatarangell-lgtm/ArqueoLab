@@ -7,27 +7,31 @@ from modules.sites import (
 )
 
 
-class TelaSitios(ctk.CTk):
+class TelaSitios(ctk.CTkFrame):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, master, voltar_callback):
+        super().__init__(master)
 
-        self.title("ArqueoLab | Sítios Arqueológicos")
-        self.geometry("950x650")
-
-        ctk.set_appearance_mode("light")
-        ctk.set_default_color_theme("green")
+        self.voltar_callback = voltar_callback
 
         self.criar_interface()
 
     def criar_interface(self):
+
+        botao_voltar = ctk.CTkButton(
+            self,
+            text="← Voltar ao menu",
+            command=self.voltar_callback,
+            width=150
+        )
+        botao_voltar.pack(anchor="w", padx=25, pady=15)
 
         titulo = ctk.CTkLabel(
             self,
             text="Cadastro de Sítios Arqueológicos",
             font=("Arial", 25, "bold")
         )
-        titulo.pack(pady=25)
+        titulo.pack(pady=20)
 
         self.nome = ctk.CTkEntry(
             self,

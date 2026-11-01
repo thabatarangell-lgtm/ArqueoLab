@@ -14,6 +14,19 @@ def criar_tabelas():
             especialidade TEXT
         )
     """)
+    
+        # Tabela de usuários
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS usuarios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            pesquisador_id INTEGER NOT NULL UNIQUE,
+            email TEXT NOT NULL UNIQUE,
+            senha_hash TEXT NOT NULL,
+
+            FOREIGN KEY (pesquisador_id)
+                REFERENCES pesquisadores(id)
+        )
+    """)
 
     # Tabela de sítios arqueológicos
     cursor.execute("""
@@ -40,6 +53,21 @@ def criar_tabelas():
             FOREIGN KEY (sitio_id)
                 REFERENCES sitios(id)
        )
+    """)
+    
+        # Tabela de materiais arqueológicos
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS materiais (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            tipo TEXT NOT NULL,
+            descricao TEXT,
+            data_descoberta TEXT,
+            projeto_id INTEGER,
+
+            FOREIGN KEY (projeto_id)
+                REFERENCES projetos(id)
+        )
     """)
 
     conexao.commit()
